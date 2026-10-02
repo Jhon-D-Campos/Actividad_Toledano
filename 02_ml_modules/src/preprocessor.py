@@ -1,7 +1,6 @@
 from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 from src.config import NUM_FEATURES, CAT_FEATURES, GEO_FEATURES
-from sklearn.preprocessing import MinMaxScaler
 
 def build_preprocessor() -> ColumnTransformer:
     """
