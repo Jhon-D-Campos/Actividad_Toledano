@@ -13,10 +13,10 @@ def build_preprocessor() -> ColumnTransformer:
 
     preprocessor = ColumnTransformer(
         transformers=[
-            ('num', MinMaxScaler(), NUM_FEATURES),
+            ('num', MinMaxScaler(), GEO_FEATURES + NUM_FEATURES),
             ('cat', OneHotEncoder(), CAT_FEATURES)
         ],
-        remainder='passthrough'
+        remainder='drop'
     )
 
     return preprocessor
