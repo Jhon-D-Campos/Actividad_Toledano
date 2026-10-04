@@ -29,3 +29,10 @@ FEATURES =  GEO_FEATURES + NUM_FEATURES + CAT_FEATURES
 # TARGET
 TARGET = "median_house_value"
 
+# FEATURES DERIVADAS (ingenieria de caracteristicas; se calculan en preprocessor.py)
+ENGINEERED_FEATURES = [
+    "rooms_per_household",
+    "bedrooms_per_room",
+    "population_per_household",
+]
+
