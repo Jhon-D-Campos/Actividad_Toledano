@@ -14,7 +14,7 @@ def build_preprocessor() -> ColumnTransformer:
     preprocessor = ColumnTransformer(
         transformers=[
             ('num', MinMaxScaler(), GEO_FEATURES + NUM_FEATURES),
-            ('cat', OneHotEncoder(), CAT_FEATURES)
+            ('cat', OneHotEncoder(handle_unknown="ignore"), CAT_FEATURES)
         ],
         remainder='drop'
     )
