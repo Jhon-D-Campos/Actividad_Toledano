@@ -1,14 +1,29 @@
+import pandas as pd
+
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer, KNNImputer
-from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
-from src.config import NUM_FEATURES, CAT_FEATURES, GEO_FEATURES
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder, FunctionTransformer
+from src.config import NUM_FEATURES, CAT_FEATURES, GEO_FEATURES, ENGINEERED_FEATURES
 
-def build_preprocessor() -> ColumnTransformer:
+def add_engineered_features(X: pd.DataFrame) -> pd.DataFrame:
     """
-    Función que imputa valores faltantes, escala columnas numéricas y codigica columnas categóricas.
+    Agrega variables derivadas a partir de las columnas originales.
 
-    Returns: ColumnTransformer. Objeto que condensa el flujo (preprocesamiento)
+    Returns: DataFrame con las columnas originales + ENGINEERED_FEATURES.
+    """
+    X = X.copy()
+    X["rooms_per_household"] = X["total_rooms"] / X["households"]
+    X["bedrooms_per_room"] = X["total_bedrooms"] / X["total_rooms"]
+    X["population_per_household"] = X["population"] / X["households"]
+    return X
+
+def build_preprocessor() -> Pipeline:
+    """
+    Función que imputa valores faltantes, escala columnas numéricas y codifica columnas 
+    categóricas.
+
+    Returns: Pipeline. Objeto que condensa el flujo (preprocesamiento)
     de los datos de entrada.
     """
 
@@ -26,12 +41,19 @@ def build_preprocessor() -> ColumnTransformer:
         ]
     )
 
-    preprocessor = ColumnTransformer(
+    column_transformer = ColumnTransformer(
         transformers=[
-            ('num', num_pipeline, GEO_FEATURES + NUM_FEATURES),
+            ('num', num_pipeline, GEO_FEATURES + NUM_FEATURES + ENGINEERED_FEATURES),
             ('cat', cat_pipeline, CAT_FEATURES)
         ],
         remainder='drop'
+    )
+
+    preprocessor = Pipeline(
+        steps=[
+            ("feature_engineering", FunctionTransformer(add_engineered_features)),
+            ("column_transformer", column_transformer),
+        ]
     )
 
     return preprocessor
