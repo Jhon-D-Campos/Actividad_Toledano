@@ -1,11 +1,17 @@
 # Configuracion de mis variables utilizadas
+from pathlib import Path
 
 # General
 SEED = 42
 
 # Path
-TRAIN_DATA_PATH = "data/train.csv"
-TEST_DATA_PATH = "data/test.csv"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DATA_PATH = BASE_DIR / "data" / "housing.csv"
+
+# Split (Train / Val / Test)
+TRAIN_SIZE = 0.70
+VAL_SIZE = 0.15
+TEST_SIZE = 0.15
 
 # FEATURES
 
