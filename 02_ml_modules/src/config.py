@@ -7,6 +7,7 @@ SEED = 42
 # Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_PATH = BASE_DIR / "data" / "housing.csv"
+TRAIN_DATA_PATH = BASE_DIR / "data" / "housing.csv"
 
 # Split (Train / Val / Test)
 TRAIN_SIZE = 0.70
