@@ -54,4 +54,6 @@ class ModelEvaluation:
         print(f"RMSE: {rmse:.2f}")
         print(f"MAE: {mae:.2f}")
 
+        return {"R2": r2, "MSE": mse, "RMSE": rmse, "MAE": mae}
+
         

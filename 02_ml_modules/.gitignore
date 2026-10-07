@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.class
+
+# Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE & Editor settings
+.vscode/
+.idea/
+
+# Data & Models
+data/*.csv
+*.joblib
+*.pkl
+
+# Marimo temporary files
+.marimo/
